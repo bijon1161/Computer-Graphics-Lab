@@ -1,4 +1,4 @@
-//Rotation Line draw
+//Rotation Line from pivot point draw
 #include<bits/stdc++.h>
 #include<graphics.h>
 using namespace std;
@@ -31,7 +31,7 @@ void plotgraph(int screenWidth,int screenHeight)
 }
 int main(){
 	
-	float x,y,x0,y0,x1,y1,xa,xb,ya,yb,angle,radian;
+	float r,xc,yc,xr,yr,xa,ya,angle,radian;
 	
 	//graphics driver
 	int gd=DETECT,gm;
@@ -44,12 +44,14 @@ int main(){
 	
 	//graph plotting function call
 	plotgraph(screenWidth,screenHeight);
-		
 	
-	cout<<"Enter the starting point (x0,y0): ";
-	cin>>x0>>y0;
-	cout<<"Enter the ending point (x1,y1): ";
-	cin>>x1>>y1;
+		
+	cout<<"Enter the value of radius r : ";
+	cin>>r;
+	cout<<"Enter the value of center point (xc,yc): ";
+	cin>>xc>>yc;
+	cout<<"Enter the pivot point (xr,yr): ";
+	cin>>xr>>yr;
 	cout<<"Enter the rotation angle a: ";
 	cin>>angle;
 	
@@ -57,20 +59,25 @@ int main(){
 	
 	//before rotation
 	setcolor(BLUE);
-	line((screenWidth/2)+x0,(screenHeight/2)-y0,(screenWidth/2)+x1,(screenHeight/2)-y1);
-	outtextxy((screenWidth/2)+x0,(screenHeight/2)-y0+10, "Before rotation");
+	circle((screenWidth/2)+xc,(screenHeight/2)-yc,r);
+	outtextxy((screenWidth/2)+xc,(screenHeight/2)-yc+10, "Before rotation");
     
     //after rotation
-    xa=x0*cos(angle*radian)-y0*sin(angle*radian);
-    ya=x0*sin(angle*radian)+y0*cos(angle*radian);
-    xb=x1*cos(angle*radian)-y1*sin(angle*radian);
-    yb=x1*sin(angle*radian)+y1*cos(angle*radian);
+    xa=xr+(xc-xr)*cos(angle*radian)-(yc-yr)*sin(angle*radian);
+    ya=yr+(xc-xr)*sin(angle*radian)+(yc-yr)*cos(angle*radian);
     
     setcolor(GREEN);
-	line((screenWidth/2)+xa,(screenHeight/2)-ya,(screenWidth/2)+xb,(screenHeight/2)-yb);    
-    outtextxy((screenWidth/2)+xa+10,(screenHeight/2)-yb-10, "After rotation");
+	circle((screenWidth/2)+xa,(screenHeight/2)-ya,r);    
+    outtextxy((screenWidth/2)+xa+10,(screenHeight/2)-ya-10, "After rotation");
     outtextxy((screenWidth/2)+5,(screenHeight/2)+5, "(0,0)");
 
+    //drawing the pivot point as filled circle for visualization
+    setfillstyle(SOLID_FILL,YELLOW);
+    setcolor(YELLOW);
+    circle((screenWidth/2)+xr,(screenHeight/2)-yr,3);
+    outtextxy((screenWidth/2)+xr+5,(screenHeight/2)-yr+5, "pivot");
+    floodfill((screenWidth/2)+xr,(screenHeight/2)-yr,YELLOW);
+    
 	getch();
 	closegraph();
 	

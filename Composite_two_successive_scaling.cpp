@@ -1,5 +1,5 @@
-//Translation of line using line starting and ending points
-//translation
+//Scaling of line using line starting and ending points
+
 #include<bits/stdc++.h>
 #include<graphics.h>
 using namespace std;
@@ -44,31 +44,32 @@ int main(){
 	
 	//graph plotting function call
 	plotgraph(screenWidth,screenHeight);
-	float x,y,x0,y0,x1,y1,tx,ty;
+	float x,y,x0,y0,x1,y1,sx,sy;
 	int i;
 
 	cout<<"Enter the value of starting point (x0,y0): ";
 	cin>>x0>>y0;
 	cout<<"Enter the value of ending point (x1,y1): ";
 	cin>>x1>>y1;
-	cout<<"Enter the value of translation factor (tx,ty): ";
-	cin>>tx>>ty;
-
-	//line before translation
+	cout<<"Enter the value of scaling factor (sx1,sy1): ";
+	cin>>sx1>>sy1;
+  	cout<<"Enter the value of scaling factor (sx2,sy2): ";
+	cin>>sx2>>sy2;
+	//line before scaling
 	setcolor(BLUE);
 	line((screenWidth/2)+x0,(screenHeight/2)-y0,(screenWidth/2)+x1,(screenHeight/2)-y1);
 	
-    outtextxy((screenWidth/2)+x0,(screenHeight/2)-y0+10, "Before translation");
-	//calculating the translated coordinates
-	x0=x0+tx;
-	y0=y0+ty;
-	x1=x1+tx;
-	y1=y1+ty;
+    outtextxy((screenWidth/2)+x0,(screenHeight/2)-y0+10, "Before scaling");
+	//calculating the scaled coordinates
+	x0=x0*sx1*sx2;
+	y0=y0*sy1*sy2;
+	x1=x1*sx1*sx2;;
+	y1=y1*sy1*sy2;
 
 	setcolor(GREEN);
 	line((screenWidth/2)+x0,(screenHeight/2)-y0,(screenWidth/2)+x1,(screenHeight/2)-y1);
 	
-    outtextxy((screenWidth/2)+x1+10,(screenHeight/2)-y1-10, "After translation");
+    outtextxy((screenWidth/2)+x1+10,(screenHeight/2)-y1-10, "After scaling");
     outtextxy((screenWidth/2)+5,(screenHeight/2)+5, "(0,0)");
 
 	getch();

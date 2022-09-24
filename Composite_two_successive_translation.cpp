@@ -1,5 +1,5 @@
-//Translation of line using line starting and ending points
-//translation
+//successive Translation of line using line starting and ending points
+//composite translation
 #include<bits/stdc++.h>
 #include<graphics.h>
 using namespace std;
@@ -44,26 +44,27 @@ int main(){
 	
 	//graph plotting function call
 	plotgraph(screenWidth,screenHeight);
-	float x,y,x0,y0,x1,y1,tx,ty;
+	float x,y,x0,y0,x1,y1,tx1,ty1,tx2,ty2;
 	int i;
 
 	cout<<"Enter the value of starting point (x0,y0): ";
 	cin>>x0>>y0;
 	cout<<"Enter the value of ending point (x1,y1): ";
 	cin>>x1>>y1;
-	cout<<"Enter the value of translation factor (tx,ty): ";
-	cin>>tx>>ty;
-
+	cout<<"Enter the value of translation factor (tx1,ty1): ";
+	cin>>tx1>>ty1;
+	cout<<"Enter the value of translation factor (tx2,ty2): ";
+	cin>>tx2>>ty2;
 	//line before translation
 	setcolor(BLUE);
 	line((screenWidth/2)+x0,(screenHeight/2)-y0,(screenWidth/2)+x1,(screenHeight/2)-y1);
 	
     outtextxy((screenWidth/2)+x0,(screenHeight/2)-y0+10, "Before translation");
 	//calculating the translated coordinates
-	x0=x0+tx;
-	y0=y0+ty;
-	x1=x1+tx;
-	y1=y1+ty;
+	x0=x0+(tx1+tx2);
+	y0=y0+(ty1+ty2);
+	x1=x1+(tx1+tx2);
+	y1=y1+(ty1+ty2);
 
 	setcolor(GREEN);
 	line((screenWidth/2)+x0,(screenHeight/2)-y0,(screenWidth/2)+x1,(screenHeight/2)-y1);

@@ -1,17 +1,19 @@
-#include <graphics.h>
-#include <conio.h>
-main()
+//object filling
+#include<bits/stdc++.h>
+#include<graphics.h>
+
+int main()
 {
-   int gd = DETECT, gm;
+	int gd=DETECT,gm;
+	
+	initgraph(&gd,&gm,"c:\\tc\\bgi");
+	
+	setcolor(RED);
+	setfillstyle(SOLID_FILL,RED);
+	circle(100,100,50);
+	floodfill(100,100,RED);
+	
 
-   initgraph(&gd, &gm, "C:\\TC\\BGI");
-
-   setcolor(RED);
-   setfillstyle(HATCH_FILL, BLUE);
-   circle(100,100,50);
-   floodfill(100,100,RED);
-   
-   getch();
-   closegraph();
-   return 0;
+	getch();
+	closegraph();
 }

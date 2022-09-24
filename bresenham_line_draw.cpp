@@ -1,4 +1,4 @@
-//Rotation Line draw
+//bresenham Line draw
 #include<bits/stdc++.h>
 #include<graphics.h>
 using namespace std;
@@ -31,46 +31,77 @@ void plotgraph(int screenWidth,int screenHeight)
 }
 int main(){
 	
-	float x,y,x0,y0,x1,y1,xa,xb,ya,yb,angle,radian;
+	float x,y,x0,y0,x1,y1,dx,dy,pk;
 	
 	//graphics driver
-	int gd=DETECT,gm;
+	int gd=DETECT,gm,step;
 	initgraph(&gd,&gm,"c:\\tc\\bgi");
 	
 	//window size measurement and initialization
 	DWORD screenWidth=GetSystemMetrics(SM_CXSCREEN);
 	DWORD screenHeight=GetSystemMetrics(SM_CYSCREEN);
-	initwindow(screenWidth,screenHeight,"",-3,-3);
+	initwindow(screenWidth,screenHeight,"window",-3,-3);
 	
 	//graph plotting function call
 	plotgraph(screenWidth,screenHeight);
-		
+	
 	
 	cout<<"Enter the starting point (x0,y0): ";
 	cin>>x0>>y0;
 	cout<<"Enter the ending point (x1,y1): ";
 	cin>>x1>>y1;
-	cout<<"Enter the rotation angle a: ";
-	cin>>angle;
 	
-	radian=3.14/180;
+	dx=abs(x1-x0);
+	dy=abs(y1-y0);
 	
-	//before rotation
-	setcolor(BLUE);
-	line((screenWidth/2)+x0,(screenHeight/2)-y0,(screenWidth/2)+x1,(screenHeight/2)-y1);
-	outtextxy((screenWidth/2)+x0,(screenHeight/2)-y0+10, "Before rotation");
-    
-    //after rotation
-    xa=x0*cos(angle*radian)-y0*sin(angle*radian);
-    ya=x0*sin(angle*radian)+y0*cos(angle*radian);
-    xb=x1*cos(angle*radian)-y1*sin(angle*radian);
-    yb=x1*sin(angle*radian)+y1*cos(angle*radian);
-    
-    setcolor(GREEN);
-	line((screenWidth/2)+xa,(screenHeight/2)-ya,(screenWidth/2)+xb,(screenHeight/2)-yb);    
-    outtextxy((screenWidth/2)+xa+10,(screenHeight/2)-yb-10, "After rotation");
-    outtextxy((screenWidth/2)+5,(screenHeight/2)+5, "(0,0)");
+	
 
+	if(x0>x1)
+	  {
+	  	x=x1;
+	  	y=y1;
+	  	step=x0;
+	  }
+	else
+	{
+		x=x0;
+		y=y0;
+		step=x1;
+	}
+	
+//	x = (dy/dx > 1) ? y : x;
+//	y = (dy/dx > 1) ? x : y;
+	
+	pk=2*dy-dx;
+	
+//	cout<<"x\ty"<<endl;	
+    
+    for(int i=0;i<step;i++)
+    {
+    //	cout<<(int)(x)<<"\t"<<(int)(y)<<endl;
+    //	cout<<(screenWidth/2)+((int) (x))<<"\t"<<(screenWidth/2)-((int)(y))<<endl;
+        putpixel((screenWidth/2)+x,(screenHeight/2)-y,GREEN);
+        
+        if(pk<0)
+        {
+        	x=x+1;
+        	y=y;
+        	pk=pk+2*dy;
+		}
+		else
+		{
+			x=x+1;
+        	y=y+1;
+        	pk=pk+2*dy-2*dx;
+		}
+        
+        outtextxy((screenWidth/2)+x0,(screenHeight/2)-y0+10, "Starting point");
+        outtextxy((screenWidth/2)+x1+10,(screenHeight/2)-y1-10, "Ending point");
+        outtextxy((screenWidth/2)+5,(screenHeight/2)+5, "(0,0)");
+
+    	
+	}
+    
 	getch();
 	closegraph();
 	

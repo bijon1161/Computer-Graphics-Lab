@@ -43,14 +43,18 @@ int main()
 	//window initialization and size measurements
 	int screenWidth=GetSystemMetrics(SM_CXSCREEN);
 	int screenHeight=GetSystemMetrics(SM_CYSCREEN);
-	initwindow(screenWidth,screenHeight,"Line Clipping",-3,-3);
+	initwindow(screenWidth-20,screenHeight-20,"Line Clipping",-3,-3);
 	
-	plotgraph(screenWidth,screenHeight);
+	plotgraph(screenWidth,screenHeight); 
 	
 	float x1,y1,x2,y2;
 	setcolor(YELLOW);
-	cout<<"Enter bottom-left and upper-right coordinates of the window: ";
-	cin>>xl>>yl>>xh>>yh;
+	//cout<<"Enter bottom-left and upper-right coordinates of the window: ";
+	//cin>>xl>>yl>>xh>>yh;
+	xl=50;
+	yl=50;
+	xh=200;
+	yh=200;
 	cout<<"Enter coordinates of the line: ";
 	cin>>x1>>y1>>x2>>y2;	
 		

@@ -70,7 +70,7 @@ int main()
 		if(c=='d' || c==77)lr=lr+5;
 		if(c=='w' || c==72)ud=ud-5;
 		
-		cout<<xc+lr<<" "<<yc+ud<<endl;
+	//	cout<<xc+lr<<" "<<yc+ud<<endl;
 		setcolor(GREEN);
         setfillstyle(SOLID_FILL,GREEN);
 	    circle((centerX)+xc+lr,centerY-yc+ud,r);

@@ -1,24 +1,28 @@
 //midpoint ellipse draw
 #include<bits/stdc++.h>
 #include<graphics.h>
-#include<dos.h>
 using namespace std;
+
+//window size measurement and initialization
+DWORD screenWidth=GetSystemMetrics(SM_CXSCREEN);
+DWORD screenHeight=GetSystemMetrics(SM_CYSCREEN);
+
 
 void plotgraph(int screenWidth,int screenHeight)
 {
 	//plotting grids
-	for(int i=screenWidth/2;i<=screenWidth;i=i+25)
+	for(int i=screenWidth/2;i<=screenWidth;i=i+50)
 	{
-		for(int j=screenHeight/2;j<=screenHeight;j=j+25)
+		for(int j=screenHeight/2;j<=screenHeight;j=j+50)
 		{
 			setcolor(WHITE);
 			line(0,j,screenWidth,j);
 			line(i,0,i,screenHeight);
 		}
 	}
-	for(int i=screenWidth/2;i>=0;i=i-25)
+	for(int i=screenWidth/2;i>=0;i=i-50)
 	{
-		for(int j=screenHeight/2;j>=0;j=j-25)
+		for(int j=screenHeight/2;j>=0;j=j-50)
 		{
 			setcolor(WHITE);
 			line(0,j,screenWidth,j);
@@ -31,32 +35,13 @@ void plotgraph(int screenWidth,int screenHeight)
 	line(screenWidth/2,0,screenWidth/2,screenHeight);
 }
 
-int main(){
-
-	int gd=DETECT,gm;
-	initgraph(&gd,&gm,"c:\\tc\\bgi");
-	setbkcolor(WHITE);
-
-
-	//window size measurement and initialization
-	DWORD screenWidth=GetSystemMetrics(SM_CXSCREEN);
-	DWORD screenHeight=GetSystemMetrics(SM_CYSCREEN);
-	initwindow(screenWidth,screenHeight,"window",1,1);
+void midpoint_ellipse_draw(int rx, int ry, int xc, int yc){
 	
-	//graph plotting function call
+	initwindow(screenWidth-20,screenHeight-20,"",-3,-3);
 	plotgraph(screenWidth,screenHeight);
-
-	float rx,ry,x,y,x0,y0,p1,p2,xc,yc,dx,dy;
-	int i;
-
-
-
-
-	cout<<"Enter the value of rx and ry: ";
-	cin>>rx>>ry;
-	cout<<"Enter the value of center point (xc,yc): ";
-	cin>>xc>>yc;
-
+	
+	int x,y,p1,p2,dx,dy,i;
+	
 	//for center=origin (x,y)=(0,ry)
 	x=0;
 	y=ry;
@@ -68,15 +53,14 @@ int main(){
 
 	dx=2*(ry*ry)*x;
 	dy=2*(rx*rx)*y;
-	cout<<"p1\t"<<"x\ty"<<endl;
+	
 	while(dx < dy)
 	{
-    	cout<<p1<<"\t"<<(int) xc+x<<"\t"<<(int) yc+y<<endl;
     
-    	putpixel((screenWidth/2)+(xc+x),(screenHeight)-(yc+y),RED);
-    	putpixel((screenWidth/2)+(xc+x),(screenHeight)-(yc-y),RED);
-    	putpixel((screenWidth/2)+(xc-x),(screenHeight)-(yc+y),RED);
-    	putpixel((screenWidth/2)+(xc-x),(screenHeight)-(yc-y),RED);
+    	putpixel((screenWidth/2)+(xc+x),(screenHeight/2)-(yc+y),YELLOW);
+    	putpixel((screenWidth/2)+(xc+x),(screenHeight/2)-(yc-y),YELLOW);
+    	putpixel((screenWidth/2)+(xc-x),(screenHeight/2)-(yc+y),YELLOW);
+    	putpixel((screenWidth/2)+(xc-x),(screenHeight/2)-(yc-y),YELLOW);
     	if(p1<0){
     		x=x+1;
         	y=y;
@@ -95,18 +79,16 @@ int main(){
       
 	}
 
+	
 	//REGION 2  
 	p2=(ry*ry)*(x+0.5)*(x+0.5)+(rx*rx)*(y-1)*(y-1)-(rx*rx*ry*ry); 
 
-	cout<<"p2\t"<<"x2\ty2"<<endl;
 	while(y>=0)
-	{
-    	cout<<p1<<"\t"<<(int) xc+x<<"\t"<<(int) yc+y<<endl;
-    
-    	putpixel((screenWidth/2)+(xc+x),(screenHeight)-(yc+y),RED);
-    	putpixel((screenWidth/2)+(xc+x),(screenHeight)-(yc-y),RED);
-    	putpixel((screenWidth/2)+(xc-x),(screenHeight)-(yc+y),RED);
-    	putpixel((screenWidth/2)+(xc-x),(screenHeight)-(yc-y),RED);
+	{ 
+    	putpixel((screenWidth/2)+(xc+x),(screenHeight/2)-(yc+y),YELLOW);
+    	putpixel((screenWidth/2)+(xc+x),(screenHeight/2)-(yc-y),YELLOW);
+    	putpixel((screenWidth/2)+(xc-x),(screenHeight/2)-(yc+y),YELLOW);
+    	putpixel((screenWidth/2)+(xc-x),(screenHeight/2)-(yc-y),YELLOW);
     	if(p2>0){
         	x=x;
         	y=y-1;
@@ -124,10 +106,20 @@ int main(){
     
 
 	}
+}
+
+int main(){
+
+
+	int rx,ry,xc,yc;
+
+	cout<<"Enter the value of rx and ry: ";
+	cin>>rx>>ry;
+	cout<<"Enter the value of center point (xc,yc): ";
+	cin>>xc>>yc;
 	
-    //outtextxy((screenWidth/2)+x0,(screenHeight/2)-y0+10, "Starting point");
-    //outtextxy((screenWidth/2)+x1+10,(screenHeight/2)-y1-10, "Ending point");
-    //outtextxy((screenWidth/2)+5,(screenHeight/2)+5, "(0,0)");
+	midpoint_ellipse_draw(rx, ry, xc, yc);
+	
 	getch();
 	closegraph();
 }
